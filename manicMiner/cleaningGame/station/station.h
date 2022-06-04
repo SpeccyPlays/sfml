@@ -1,14 +1,12 @@
 //player class header
-#ifndef TRAIN_H
-#define TRAIN_H
+#ifndef STATION_H
+#define STATION_H
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-namespace trains {
-    class train{
+namespace stations {
+    class station{
     public :
-        float trainX;
-        float trainY;
         //declare the millions of textures and sprites
         float spriteReductionFactor;
         sf::Texture chairUpTexture;
@@ -29,7 +27,7 @@ namespace trains {
         sf::Sprite carpetSprite;
         sf::Texture rackTexture;
         sf::Sprite rackSprite;
-        int ietInfo[38][5] {
+        int stationInfo[38][5] {
         {6,0,8,7,0},
         {0,0,8,0,0},
         {8,8,8,8,8},
@@ -68,10 +66,9 @@ namespace trains {
         {4,4,8,4,4},
         {9,8,8,8,9},
         {1,0,8,2,0}};
-        void loadTrain();
-        void drawTrain(); //not used. Done in main instead
-
+        void loadStation();
     };
 }
 #endif // TRAIN
+
 

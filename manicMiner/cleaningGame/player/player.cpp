@@ -7,6 +7,7 @@ void player_1::initPlayer(float xStart, float yStart, float moveAmount, std::str
     xPosition = xStart;
     yPosition = yStart;
     moveIncrement = moveAmount;
+    spriteReductionFactor = 1.0f;
     if (!player_1::playerTexture.loadFromFile(textureFileName)){
         std::cout << "Texture not loaded" << std::endl;
     }
@@ -15,7 +16,7 @@ void player_1::initPlayer(float xStart, float yStart, float moveAmount, std::str
     }
     player_1::playerTexture.setSmooth(true);
     player_1::playerSprite.setTexture(playerTexture);
-    player_1::playerSprite.setScale(1.f, 1.f);
+    player_1::playerSprite.setScale(spriteReductionFactor, spriteReductionFactor);
     player_1::playerSprite.setOrigin(4.f, 4.f);
     player_1::playerSprite.setPosition(xPosition, yPosition);
 };

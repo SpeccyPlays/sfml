@@ -43,6 +43,7 @@
 		<Unit filename="player/player.h" />
 		<Unit filename="sprites/train.cpp" />
 		<Unit filename="sprites/train.h" />
+		<Unit filename="station/station.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
