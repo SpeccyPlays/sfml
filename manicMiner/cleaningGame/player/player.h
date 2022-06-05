@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-namespace player {
-    class player_1{
+namespace players {
+    class player{
     public :
         float xPosition;
         float yPosition;

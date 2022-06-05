@@ -1,27 +1,27 @@
 //player
 #include "player.h"
 
-using namespace player;
+using namespace players;
 
-void player_1::initPlayer(float xStart, float yStart, float moveAmount, std::string textureFileName){
+void player::initPlayer(float xStart, float yStart, float moveAmount, std::string textureFileName){
     xPosition = xStart;
     yPosition = yStart;
     moveIncrement = moveAmount;
     spriteReductionFactor = 1.0f;
-    if (!player_1::playerTexture.loadFromFile(textureFileName)){
+    if (!player::playerTexture.loadFromFile(textureFileName)){
         std::cout << "Texture not loaded" << std::endl;
     }
     else {
         std::cout << textureFileName << std::endl;
     }
-    player_1::playerTexture.setSmooth(true);
-    player_1::playerSprite.setTexture(playerTexture);
-    player_1::playerSprite.setScale(spriteReductionFactor, spriteReductionFactor);
-    player_1::playerSprite.setOrigin(4.f, 4.f);
-    player_1::playerSprite.setPosition(xPosition, yPosition);
+    player::playerTexture.setSmooth(true);
+    player::playerSprite.setTexture(playerTexture);
+    player::playerSprite.setScale(spriteReductionFactor, spriteReductionFactor);
+    player::playerSprite.setOrigin(4.f, 4.f);
+    player::playerSprite.setPosition(xPosition, yPosition);
 };
-void player_1::updateLocation(float xUpdateValue, float yUpdateValue){
+void player::updateLocation(float xUpdateValue, float yUpdateValue){
     xPosition += xUpdateValue;
     yPosition += yUpdateValue;
-    player_1::playerSprite.setPosition(xPosition, yPosition);
+    player::playerSprite.setPosition(xPosition, yPosition);
 };
