@@ -17,7 +17,7 @@ void player::initPlayer(float xStart, float yStart, float moveAmount, std::strin
     player::playerTexture.setSmooth(true);
     player::playerSprite.setTexture(playerTexture);
     player::playerSprite.setScale(spriteReductionFactor, spriteReductionFactor);
-    player::playerSprite.setOrigin(4.f, 4.f);
+    player::playerSprite.setOrigin(16.f, 16.f);
     player::playerSprite.setPosition(xPosition, yPosition);
 };
 void player::updateLocation(float xUpdateValue, float yUpdateValue){

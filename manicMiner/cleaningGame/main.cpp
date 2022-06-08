@@ -12,7 +12,10 @@ using namespace std;
 using namespace trains;
 
 RenderWindow window(VideoMode(SCREENWIDTH, SCREENHEIGHT), "Train cleaning", Style::Default);
+Texture backgroundImage;
+Sprite background;
 View view1(FloatRect(0.f, 1000.f, 800.f, 600.f));
+View miniMap(FloatRect(0.f, 0.f, 2400.f, 3200.f));
 player ben;
 train iet;
 train hst;
@@ -42,25 +45,41 @@ int main(){
 void init(){
     //setup the world
 //    view1.setRotation(340);
+    if (!backgroundImage.loadFromFile("level/background2.png")){
+        cout << "Background not loaded" << endl;
+    }
+    else {
+        cout << "Background loaded" << endl;
+    }
+    background.setTexture(backgroundImage);
     window.setView(view1);
     ben.initPlayer(400.0, 1300.0, 2.f, "sprites/player.png");
     iet.loadTrain();
     hst.loadTrain();
     window.setFramerateLimit(60);
-    hst.trainX = 320;
+    hst.trainX = 438;
+    miniMap.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
 }
 void drawStuff(){
     window.clear();
+    //draw everything to main view
     window.setView(view1); //do this here otherwise lag when moving screen compared to player and it looks weird
+    window.draw(background);
     drawTrain(iet);
     drawTrain(hst);
+    window.draw(ben.playerSprite); //draw player last otherwise he disappears under other sprites
+//    redraw everything to the minimap view
+    window.setView(miniMap);
+    window.draw(background);
+    drawTrain(iet);
+    drawTrain(hst);
+    window.draw(ben.playerSprite);
+    window.display();
     //move train down screen
-    if (iet.trainY < 0){
+    if (iet.trainY <= 0){
         hst.trainY += 5.f;
         iet.trainY += 5.f;
     }
-    window.draw(ben.playerSprite); //draw player last otherwise he disappears under other sprites
-    window.display();
 }
 void keyboardCheck(player &playerObject){
         Keyboard keys;
@@ -68,18 +87,30 @@ void keyboardCheck(player &playerObject){
         if (keys.isKeyPressed(keys.Left)){
             view1.move(-playerObject.moveIncrement, 0.f);
             playerObject.updateLocation(-playerObject.moveIncrement, 0.f);
+            if (playerObject.playerSprite.getRotation() != 270.f){
+                playerObject.playerSprite.setRotation(270.f);
+            }
         }
         if (keys.isKeyPressed(keys.Right)){
             view1.move(playerObject.moveIncrement, 0.f);
             playerObject.updateLocation(playerObject.moveIncrement, 0.f);
+            if (playerObject.playerSprite.getRotation() != 90.f){
+                playerObject.playerSprite.setRotation(90.f);
+            }
         }
         if (keys.isKeyPressed(keys.Up)){
             view1.move(0.f, -playerObject.moveIncrement);
             playerObject.updateLocation(0.f, -playerObject.moveIncrement);
+            if (playerObject.playerSprite.getRotation() != 0.f){
+                playerObject.playerSprite.setRotation(0.f);
+            }
         }
         if (keys.isKeyPressed(keys.Down)){
             view1.move(0.f, playerObject.moveIncrement);
             playerObject.updateLocation(0.f, playerObject.moveIncrement);
+            if (playerObject.playerSprite.getRotation() != 180.f){
+                playerObject.playerSprite.setRotation(180.f);
+            }
         }
 }
 void drawTrain(train &trainObject){

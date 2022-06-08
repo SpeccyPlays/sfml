@@ -5,7 +5,7 @@ using namespace trains;
 
 void train::loadTrain(){
     spriteReductionFactor = 1.0f; //equals 1 to 1 scale
-    trainX = 0.f;
+    trainX = 40.f;
     trainY = -600.f; //minus number so train beings off top of screen
     //load sprite images and map to texture
     if (!train::chairDownTexture.loadFromFile("sprites/chairDown.png")){
