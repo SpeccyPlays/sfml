@@ -2,8 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "player/player.h"
 #include "sprites/train.h"
-#define SCREENWIDTH 800
-#define SCREENHEIGHT 600
+#define SCREENWIDTH 800.f
+#define SCREENHEIGHT 600.f
+#define LEVELWIDTH 2400.f
+#define LEVELHEIGHT 3200.f
 //note 0 is top of level
 
 using namespace players;
@@ -14,8 +16,8 @@ using namespace trains;
 RenderWindow window(VideoMode(SCREENWIDTH, SCREENHEIGHT), "Train cleaning", Style::Default);
 Texture backgroundImage;
 Sprite background;
-View view1(FloatRect(0.f, 1000.f, 800.f, 600.f));
-View miniMap(FloatRect(0.f, 0.f, 2400.f, 3200.f));
+View view1(FloatRect(0.f, 1000.f, SCREENWIDTH, SCREENHEIGHT));
+View miniMap(FloatRect(0.f, 0.f, LEVELWIDTH, LEVELHEIGHT));
 player ben;
 train iet;
 train hst;
@@ -85,29 +87,43 @@ void keyboardCheck(player &playerObject){
         Keyboard keys;
         //check what key is pressed and move view and player accordingly
         if (keys.isKeyPressed(keys.Left)){
-            view1.move(-playerObject.moveIncrement, 0.f);
+            //only move the view if the player is away from the edges. Otherwise, only move player
+            //change rotation of sprite so it's facing direction of movement
+            if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < (LEVELWIDTH - SCREENWIDTH /2))) {
+                view1.move(-playerObject.moveIncrement, 0.f);
+            }
             playerObject.updateLocation(-playerObject.moveIncrement, 0.f);
             if (playerObject.playerSprite.getRotation() != 270.f){
                 playerObject.playerSprite.setRotation(270.f);
             }
         }
         if (keys.isKeyPressed(keys.Right)){
-            view1.move(playerObject.moveIncrement, 0.f);
+            if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < (LEVELWIDTH - SCREENWIDTH /2))){
+                view1.move(playerObject.moveIncrement, 0.f);
+            }
             playerObject.updateLocation(playerObject.moveIncrement, 0.f);
             if (playerObject.playerSprite.getRotation() != 90.f){
                 playerObject.playerSprite.setRotation(90.f);
             }
         }
         if (keys.isKeyPressed(keys.Up)){
-            view1.move(0.f, -playerObject.moveIncrement);
-            playerObject.updateLocation(0.f, -playerObject.moveIncrement);
+            if ((playerObject.yPosition > SCREENHEIGHT / 2) && (playerObject.yPosition < (LEVELHEIGHT - SCREENHEIGHT / 2))){
+                view1.move(0.f, -playerObject.moveIncrement);
+            }
+            if (playerObject.yPosition > (0 + playerObject.moveIncrement)){
+                playerObject.updateLocation(0.f, -playerObject.moveIncrement);
+            }
             if (playerObject.playerSprite.getRotation() != 0.f){
                 playerObject.playerSprite.setRotation(0.f);
             }
         }
         if (keys.isKeyPressed(keys.Down)){
-            view1.move(0.f, playerObject.moveIncrement);
-            playerObject.updateLocation(0.f, playerObject.moveIncrement);
+            if ((playerObject.yPosition > SCREENHEIGHT / 2) && (playerObject.yPosition < (LEVELHEIGHT - SCREENHEIGHT / 2))){
+                view1.move(0.f, playerObject.moveIncrement);
+            }
+            if (playerObject.yPosition <= (LEVELHEIGHT - spriteSize)){
+                playerObject.updateLocation(0.f, playerObject.moveIncrement);
+            }
             if (playerObject.playerSprite.getRotation() != 180.f){
                 playerObject.playerSprite.setRotation(180.f);
             }
