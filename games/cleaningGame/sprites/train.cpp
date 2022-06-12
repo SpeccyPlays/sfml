@@ -62,6 +62,18 @@ void train::loadTrain(){
     else {
         std::cout << "rack.png" << std::endl;
     }
+    if (!train::rightSideWithWindowTexture.loadFromFile("sprites/rightsidewithwindow.png")){
+        std::cout << "Texture not loaded" << std::endl;
+    }
+    else {
+        std::cout << "rightsidewithwindow.png" << std::endl;
+    }
+    if (!train::leftSideWithWindowTexture.loadFromFile("sprites/leftsidewithwindow.png")){
+        std::cout << "Texture not loaded" << std::endl;
+    }
+    else {
+        std::cout << "leftsidewithwindow.png" << std::endl;
+    }
     //texture and sprite stuff
     train::chairUpTexture.setSmooth(true);
     train::chairUpSprite.setTexture(chairUpTexture);//map texture to sprite
@@ -96,6 +108,14 @@ void train::loadTrain(){
     train::rackTexture.setSmooth(true);
     train::rackSprite.setTexture(rackTexture);
     train::rackSprite.setScale(spriteReductionFactor, spriteReductionFactor);
+
+    train::rightSideWithWindowTexture.setSmooth(true);
+    train::rightSideWithWindowSprite.setTexture(rightSideWithWindowTexture);
+    train::rightSideWithWindowSprite.setScale(spriteReductionFactor, spriteReductionFactor);
+
+    train::leftSideWithWindowTexture.setSmooth(true);
+    train::leftSideWithWindowSprite.setTexture(leftSideWithWindowTexture);
+    train::leftSideWithWindowSprite.setScale(spriteReductionFactor, spriteReductionFactor);
 };
 
 /*void drawTrain(){

@@ -55,7 +55,8 @@ void init(){
     }
     background.setTexture(backgroundImage);
     window.setView(view1);
-    ben.initPlayer(400.0, 1300.0, 2.f, "sprites/player.png");
+    ben.initPlayer(400.0, 1300.0, 2.f, "sprites/playerSpriteSheet.png");
+    view1.setCenter(ben.xPosition, ben.yPosition);
     iet.loadTrain();
     hst.loadTrain();
     window.setFramerateLimit(60);
@@ -92,7 +93,9 @@ void keyboardCheck(player &playerObject){
             if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < (LEVELWIDTH - SCREENWIDTH /2))) {
                 view1.move(-playerObject.moveIncrement, 0.f);
             }
-            playerObject.updateLocation(-playerObject.moveIncrement, 0.f);
+            if (playerObject.xPosition > (0 + spriteSize)){
+                playerObject.updateLocation(-playerObject.moveIncrement, 0.f);
+            }
             if (playerObject.playerSprite.getRotation() != 270.f){
                 playerObject.playerSprite.setRotation(270.f);
             }
@@ -101,7 +104,9 @@ void keyboardCheck(player &playerObject){
             if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < (LEVELWIDTH - SCREENWIDTH /2))){
                 view1.move(playerObject.moveIncrement, 0.f);
             }
-            playerObject.updateLocation(playerObject.moveIncrement, 0.f);
+            if (playerObject.xPosition < (LEVELWIDTH - spriteSize)){
+                playerObject.updateLocation(playerObject.moveIncrement, 0.f);
+            }
             if (playerObject.playerSprite.getRotation() != 90.f){
                 playerObject.playerSprite.setRotation(90.f);
             }
@@ -110,7 +115,7 @@ void keyboardCheck(player &playerObject){
             if ((playerObject.yPosition > SCREENHEIGHT / 2) && (playerObject.yPosition < (LEVELHEIGHT - SCREENHEIGHT / 2))){
                 view1.move(0.f, -playerObject.moveIncrement);
             }
-            if (playerObject.yPosition > (0 + playerObject.moveIncrement)){
+            if (playerObject.yPosition > (0 + spriteSize)){
                 playerObject.updateLocation(0.f, -playerObject.moveIncrement);
             }
             if (playerObject.playerSprite.getRotation() != 0.f){
@@ -121,7 +126,7 @@ void keyboardCheck(player &playerObject){
             if ((playerObject.yPosition > SCREENHEIGHT / 2) && (playerObject.yPosition < (LEVELHEIGHT - SCREENHEIGHT / 2))){
                 view1.move(0.f, playerObject.moveIncrement);
             }
-            if (playerObject.yPosition <= (LEVELHEIGHT - spriteSize)){
+            if (playerObject.yPosition < (LEVELHEIGHT - spriteSize)){
                 playerObject.updateLocation(0.f, playerObject.moveIncrement);
             }
             if (playerObject.playerSprite.getRotation() != 180.f){
@@ -134,7 +139,7 @@ void drawTrain(train &trainObject){
        //train object is passed by reference so function can be used for multiple functions
        //trainX = top left corner of first value of array
     for (uint8_t counter = 0; counter < 38; counter++){
-        for (uint8_t counter2 = 0; counter2 < 5; counter2++){
+        for (uint8_t counter2 = 0; counter2 < 7; counter2++){
             int spriteNum = trainObject.ietInfo[counter][counter2];
             switch (spriteNum){
                 case 0 :
@@ -174,6 +179,14 @@ void drawTrain(train &trainObject){
                 case 9 :
                     trainObject.rackSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
                     window.draw(trainObject.rackSprite);
+                    break;
+                case 10 :
+                    trainObject.rightSideWithWindowSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
+                    window.draw(trainObject.rightSideWithWindowSprite);
+                    break;
+                case 11 :
+                    trainObject.leftSideWithWindowSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
+                    window.draw(trainObject.leftSideWithWindowSprite);
                     break;
             }
         }

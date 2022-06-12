@@ -13,6 +13,8 @@ namespace players {
         float spriteReductionFactor;
         sf::Texture playerTexture;
         sf::Sprite playerSprite;
+        int spriteFrame;
+        int spriteFrameIncrement;
         void initPlayer(float xStart, float yStart, float moveAmount, std::string textureFileName);
         void updateLocation(float xUpdateValue, float yUpdateValue);
     };
