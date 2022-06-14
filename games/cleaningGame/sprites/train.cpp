@@ -3,9 +3,10 @@
 
 using namespace trains;
 
-void train::loadTrain(){
+void train::loadTrain(float _spriteSize){
+    spriteSize = _spriteSize;
     spriteReductionFactor = 1.0f; //equals 1 to 1 scale
-    trainX = 40.f;
+    trainX = 10.f;
     trainY = -600.f; //minus number so train beings off top of screen
     //load sprite images and map to texture
     if (!train::chairDownTexture.loadFromFile("sprites/chairDown.png")){
@@ -74,6 +75,18 @@ void train::loadTrain(){
     else {
         std::cout << "leftsidewithwindow.png" << std::endl;
     }
+    if (!train::outsideDoorFaceRightTexture.loadFromFile("sprites/outsideDoorFaceRight.png")){
+        std::cout << "Texture not loaded" << std::endl;
+    }
+    else {
+        std::cout << "outsideDoorFaceRight.png" << std::endl;
+    }
+    if (!train::outsideDoorFaceLeftTexture.loadFromFile("sprites/outsideDoorFaceLeft.png")){
+        std::cout << "Texture not loaded" << std::endl;
+    }
+    else {
+        std::cout << "outsideDoorFaceLeft.png" << std::endl;
+    }
     //texture and sprite stuff
     train::chairUpTexture.setSmooth(true);
     train::chairUpSprite.setTexture(chairUpTexture);//map texture to sprite
@@ -116,37 +129,78 @@ void train::loadTrain(){
     train::leftSideWithWindowTexture.setSmooth(true);
     train::leftSideWithWindowSprite.setTexture(leftSideWithWindowTexture);
     train::leftSideWithWindowSprite.setScale(spriteReductionFactor, spriteReductionFactor);
-};
 
-/*void drawTrain(){
+    train::outsideDoorFaceRightTexture.setSmooth(true);
+    train::outsideDoorFaceRightSprite.setTexture(outsideDoorFaceRightTexture);
+    train::outsideDoorFaceRightSprite.setScale(spriteReductionFactor, spriteReductionFactor);
+
+    train::outsideDoorFaceLeftTexture.setSmooth(true);
+    train::outsideDoorFaceLeftSprite.setTexture(outsideDoorFaceLeftTexture);
+    train::outsideDoorFaceLeftSprite.setScale(spriteReductionFactor, spriteReductionFactor);
+}
+void train::drawTrain(sf::RenderWindow &windowRef){
+       //go through the train info array and draw the right sprite according to the value
+       //train object is passed by reference so function can be used for multiple functions
+       //trainX = top left corner of first value of array
     for (uint8_t counter = 0; counter < 38; counter++){
-        for (uint8_t counter2 = 0; counter2 < 5; counter2 ++){
-            int spriteNum = train::ietInfo[counter][counter2];
+        for (uint8_t counter2 = 0; counter2 < 7; counter2++){
+            int spriteNum = ietInfo[counter][counter2];
             switch (spriteNum){
                 case 0 :
                     break;
                 case 1 :
-                    train::doorLeftSprite.setPosition(counter2 * 32.f, counter * 32.f );
-//                    sf::RenderWindow::draw(train::doorLeftSprite);
+                    doorLeftSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(doorLeftSprite);
                     break;
                 case 2 :
-                    train::doorRightSprite.setPosition(counter2 * 32.f, counter * 32.f );
-//                    sf::RenderWindow(train::doorRightSprite);
+                    doorRightSprite.setPosition((trainX + counter2 * spriteSize), (trainY + counter * spriteSize) );
+                    windowRef.draw(doorRightSprite);
                     break;
                 case 3 :
-                    train::chairDownSprite.setPosition(counter2 * 32.f, counter * 32.f );
-//                    sf::RenderWindow(train::chairDownSprite);
+                    chairDownSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(chairDownSprite);
                     break;
                case 4 :
-                    train::chairUpSprite.setPosition(counter2 * 32.f, counter * 32.f );
-//                    sf::RenderWindow(train::chairUpSprite);
+                    chairUpSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(chairUpSprite);
                     break;
                 case 5 :
-                    train::tableSprite.setPosition(counter2 * 32.f, counter * 32.f );
-//                    sf::RenderWindow(train::tableSprite);
+                    tableSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(tableSprite);
                     break;
-
+                case 6 :
+                    toiletLeftSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(toiletLeftSprite);
+                    break;
+                case 7 :
+                    toiletRightSprite.setPosition((trainX + counter2 * spriteSize), (trainY + counter * spriteSize) );
+                    windowRef.draw(toiletRightSprite);
+                    break;
+                case 8 :
+                    carpetSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(carpetSprite);
+                    break;
+                case 9 :
+                    rackSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(rackSprite);
+                    break;
+                case 10 :
+                    rightSideWithWindowSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(rightSideWithWindowSprite);
+                    break;
+                case 11 :
+                    leftSideWithWindowSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(leftSideWithWindowSprite);
+                    break;
+                case 12 :
+                    outsideDoorFaceRightSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(outsideDoorFaceRightSprite);
+                    break;
+                case 13 :
+                    outsideDoorFaceLeftSprite.setPosition(trainX + counter2 * spriteSize, trainY + counter * spriteSize );
+                    windowRef.draw(outsideDoorFaceLeftSprite);
+                    break;
             }
         }
     }
-};*/
+};

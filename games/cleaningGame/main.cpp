@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "player/player.h"
 #include "sprites/train.h"
-#define SCREENWIDTH 800.f
-#define SCREENHEIGHT 600.f
+#define SCREENWIDTH 1024.f
+#define SCREENHEIGHT 768.f
 #define LEVELWIDTH 2400.f
 #define LEVELHEIGHT 3200.f
 //note 0 is top of level
@@ -57,8 +57,8 @@ void init(){
     window.setView(view1);
     ben.initPlayer(400.0, 1300.0, 2.f, "sprites/playerSpriteSheet.png");
     view1.setCenter(ben.xPosition, ben.yPosition);
-    iet.loadTrain();
-    hst.loadTrain();
+    iet.loadTrain(spriteSize);
+    hst.loadTrain(spriteSize);
     window.setFramerateLimit(60);
     hst.trainX = 438;
     miniMap.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
@@ -68,14 +68,15 @@ void drawStuff(){
     //draw everything to main view
     window.setView(view1); //do this here otherwise lag when moving screen compared to player and it looks weird
     window.draw(background);
-    drawTrain(iet);
-    drawTrain(hst);
+//    drawTrain(iet);
+    iet.drawTrain(window);
+    hst.drawTrain(window);
     window.draw(ben.playerSprite); //draw player last otherwise he disappears under other sprites
 //    redraw everything to the minimap view
     window.setView(miniMap);
     window.draw(background);
-    drawTrain(iet);
-    drawTrain(hst);
+    iet.drawTrain(window);
+    hst.drawTrain(window);
     window.draw(ben.playerSprite);
     window.display();
     //move train down screen
@@ -133,62 +134,4 @@ void keyboardCheck(player &playerObject){
                 playerObject.playerSprite.setRotation(180.f);
             }
         }
-}
-void drawTrain(train &trainObject){
-       //go through the train info array and draw the right sprite according to the value
-       //train object is passed by reference so function can be used for multiple functions
-       //trainX = top left corner of first value of array
-    for (uint8_t counter = 0; counter < 38; counter++){
-        for (uint8_t counter2 = 0; counter2 < 7; counter2++){
-            int spriteNum = trainObject.ietInfo[counter][counter2];
-            switch (spriteNum){
-                case 0 :
-                    break;
-                case 1 :
-                    trainObject.doorLeftSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.doorLeftSprite);
-                    break;
-                case 2 :
-                    trainObject.doorRightSprite.setPosition((trainObject.trainX + counter2 * spriteSize), (trainObject.trainY + counter * spriteSize) );
-                    window.draw(trainObject.doorRightSprite);
-                    break;
-                case 3 :
-                    trainObject.chairDownSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.chairDownSprite);
-                    break;
-               case 4 :
-                    trainObject.chairUpSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.chairUpSprite);
-                    break;
-                case 5 :
-                    trainObject.tableSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.tableSprite);
-                    break;
-                case 6 :
-                    trainObject.toiletLeftSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.toiletLeftSprite);
-                    break;
-                case 7 :
-                    trainObject.toiletRightSprite.setPosition((trainObject.trainX + counter2 * spriteSize), (trainObject.trainY + counter * spriteSize) );
-                    window.draw(trainObject.toiletRightSprite);
-                    break;
-                case 8 :
-                    trainObject.carpetSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.carpetSprite);
-                    break;
-                case 9 :
-                    trainObject.rackSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.rackSprite);
-                    break;
-                case 10 :
-                    trainObject.rightSideWithWindowSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.rightSideWithWindowSprite);
-                    break;
-                case 11 :
-                    trainObject.leftSideWithWindowSprite.setPosition(trainObject.trainX + counter2 * spriteSize, trainObject.trainY + counter * spriteSize );
-                    window.draw(trainObject.leftSideWithWindowSprite);
-                    break;
-            }
-        }
-    }
 }

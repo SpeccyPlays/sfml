@@ -12,6 +12,7 @@ namespace trains {
         //declare the millions of textures and sprites
         //inside sprites
         float spriteReductionFactor;
+        float spriteSize;
         sf::Texture chairUpTexture;
         sf::Sprite chairUpSprite;
         sf::Texture chairDownTexture;
@@ -35,10 +36,14 @@ namespace trains {
         sf::Sprite rightSideWithWindowSprite;
         sf::Texture leftSideWithWindowTexture;
         sf::Sprite leftSideWithWindowSprite;
+        sf::Texture outsideDoorFaceRightTexture;
+        sf::Sprite outsideDoorFaceRightSprite;
+        sf::Texture outsideDoorFaceLeftTexture;
+        sf::Sprite outsideDoorFaceLeftSprite;
         int ietInfo[38][7] {
         {0,6,0,8,7,0,0},
         {0,0,0,8,0,0,0},
-        {0,8,8,8,8,8,0},
+        {13,8,8,8,8,8,12},
         {0,1,0,8,2,0,0},
         {0,9,8,8,8,9,0},
         {11,3,3,8,3,3,10},
@@ -74,9 +79,8 @@ namespace trains {
         {0,4,4,8,4,4,0},
         {0,9,8,8,8,9,0},
         {0,1,0,8,2,0,0}};
-        void loadTrain();
-        void drawTrain(); //not used. Done in main instead
-
+        void loadTrain(float spriteSize);
+        void drawTrain(sf::RenderWindow &windowRef); //not used. Done in main instead
     };
 }
 #endif // TRAIN
