@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "player/player.h"
 #include "sprites/train.h"
-#define SCREENWIDTH 1024.f
-#define SCREENHEIGHT 768.f
+#define SCREENWIDTH 800.f
+#define SCREENHEIGHT 600.f
 #define LEVELWIDTH 2400.f
 #define LEVELHEIGHT 3200.f
 //note 0 is top of level
@@ -68,7 +68,6 @@ void drawStuff(){
     //draw everything to main view
     window.setView(view1); //do this here otherwise lag when moving screen compared to player and it looks weird
     window.draw(background);
-//    drawTrain(iet);
     iet.drawTrain(window);
     hst.drawTrain(window);
     window.draw(ben.playerSprite); //draw player last otherwise he disappears under other sprites
@@ -91,7 +90,7 @@ void keyboardCheck(player &playerObject){
         if (keys.isKeyPressed(keys.Left)){
             //only move the view if the player is away from the edges. Otherwise, only move player
             //change rotation of sprite so it's facing direction of movement
-            if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < (LEVELWIDTH - SCREENWIDTH /2))) {
+            if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < LEVELWIDTH - (SCREENWIDTH /2))) {
                 view1.move(-playerObject.moveIncrement, 0.f);
             }
             if (playerObject.xPosition > (0 + spriteSize)){

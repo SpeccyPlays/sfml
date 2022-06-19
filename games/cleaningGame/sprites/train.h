@@ -13,33 +13,12 @@ namespace trains {
         //inside sprites
         float spriteReductionFactor;
         float spriteSize;
-        sf::Texture chairUpTexture;
-        sf::Sprite chairUpSprite;
-        sf::Texture chairDownTexture;
-        sf::Sprite chairDownSprite;
-        sf::Texture tableTexture;
-        sf::Sprite tableSprite;
-        sf::Texture doorLeftTexture;
-        sf::Sprite doorLeftSprite;
-        sf::Texture doorRightTexture;
-        sf::Sprite doorRightSprite;
-        sf::Texture toiletLeftTexture;
-        sf::Sprite toiletLeftSprite;
-        sf::Texture toiletRightTexture;
-        sf::Sprite toiletRightSprite;
-        sf::Texture carpetTexture;
-        sf::Sprite carpetSprite;
-        sf::Texture rackTexture;
-        sf::Sprite rackSprite;
-        //outside of train sprites
-        sf::Texture rightSideWithWindowTexture;
-        sf::Sprite rightSideWithWindowSprite;
-        sf::Texture leftSideWithWindowTexture;
-        sf::Sprite leftSideWithWindowSprite;
-        sf::Texture outsideDoorFaceRightTexture;
-        sf::Sprite outsideDoorFaceRightSprite;
-        sf::Texture outsideDoorFaceLeftTexture;
-        sf::Sprite outsideDoorFaceLeftSprite;
+        struct textureAndSpriteInfo {
+            std::string textureNameString;
+            sf::Texture textureName;
+            sf::Sprite spriteName;
+        };
+        textureAndSpriteInfo trainTextureAndSpriteInfo[14];
         int ietInfo[38][7] {
         {0,6,0,8,7,0,0},
         {0,0,0,8,0,0,0},
