@@ -22,6 +22,8 @@ void train::loadTrain(float _spriteSize){
     train::trainTextureAndSpriteInfo[11].textureNameString = "sprites/leftsidewithwindow.png";
     train::trainTextureAndSpriteInfo[12].textureNameString = "sprites/outsideDoorFaceRight.png";
     train::trainTextureAndSpriteInfo[13].textureNameString = "sprites/outsideDoorFaceLeft.png";
+    train::trainTextureAndSpriteInfo[14].textureNameString = "sprites/leftsidenowindow.png";
+    train::trainTextureAndSpriteInfo[15].textureNameString = "sprites/rightsidenowindow.png";
     //loop through the texture and sprite structure to load texture and assign texture to sprite
     for (uint8_t i = 1; i < sizeof(train::trainTextureAndSpriteInfo)/sizeof(train::trainTextureAndSpriteInfo[0]); i++){
         if (!train::trainTextureAndSpriteInfo[i].textureName.loadFromFile(train::trainTextureAndSpriteInfo[i].textureNameString)){
@@ -34,7 +36,7 @@ void train::loadTrain(float _spriteSize){
             train::trainTextureAndSpriteInfo[i].spriteName.setScale(spriteReductionFactor, spriteReductionFactor);
         }
     }
-}
+}//endLoadTrain
 void train::drawTrain(sf::RenderWindow &windowRef){
        //go through the train info array and draw the right sprite according to the value
        //train object is passed by reference so function can be used for multiple functions
@@ -48,4 +50,13 @@ void train::drawTrain(sf::RenderWindow &windowRef){
             }
         }
     }
-};
+}//end drawTrain
+bool train::onTrainCollisionCheck(float receiveX, float receiveY){
+    float receiveX2 = receiveX + spriteSize;
+    float receiveY2 = receiveY + spriteSize;
+    if ((receiveX >= trainX && receiveX <= trainX + (sizeof(ietInfo[0])/sizeof(ietInfo[0][0] * 32)))){
+        std::cout << "player in X boundary" << std::endl;
+    }
+
+    return false;
+}//end onTrainCollisionCheck;

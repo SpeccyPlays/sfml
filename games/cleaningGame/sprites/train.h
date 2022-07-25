@@ -18,12 +18,12 @@ namespace trains {
             sf::Texture textureName;
             sf::Sprite spriteName;
         };
-        textureAndSpriteInfo trainTextureAndSpriteInfo[14];
-        int ietInfo[38][7] {
-        {0,6,0,8,7,0,0},
+        textureAndSpriteInfo trainTextureAndSpriteInfo[16];
+        int ietInfo[39][7] {
+        {14,6,0,8,7,0,15},
         {0,0,0,8,0,0,0},
         {13,8,8,8,8,8,12},
-        {0,1,0,8,2,0,0},
+        {14,1,0,8,2,0,15},
         {0,9,8,8,8,9,0},
         {11,3,3,8,3,3,10},
         {0,8,8,8,8,8,0},
@@ -56,10 +56,12 @@ namespace trains {
         {11,4,4,8,4,4,10},
         {0,8,8,8,8,8,0},
         {0,4,4,8,4,4,0},
-        {0,9,8,8,8,9,0},
-        {0,1,0,8,2,0,0}};
+        {14,9,8,8,8,9,15},
+        {0,1,0,8,2,0,0},
+        {13,8,8,8,8,8,12}};
         void loadTrain(float spriteSize);
-        void drawTrain(sf::RenderWindow &windowRef); //not used. Done in main instead
+        void drawTrain(sf::RenderWindow &windowRef);
+        bool onTrainCollisionCheck(float receiveX, float receiveY);
     };
 }
 #endif // TRAIN

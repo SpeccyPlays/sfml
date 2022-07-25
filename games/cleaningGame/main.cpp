@@ -90,6 +90,7 @@ void keyboardCheck(player &playerObject){
         if (keys.isKeyPressed(keys.Left)){
             //only move the view if the player is away from the edges. Otherwise, only move player
             //change rotation of sprite so it's facing direction of movement
+            //below is in progress
             if ((playerObject.xPosition > SCREENWIDTH / 2) && (playerObject.xPosition < LEVELWIDTH - (SCREENWIDTH /2))) {
                 view1.move(-playerObject.moveIncrement, 0.f);
             }
